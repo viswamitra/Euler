@@ -17,23 +17,40 @@ public class LongestPrefixMatcher {
 
     public String getMatchingPrefix(Trie t, String input) {
         String result = "";
+        int prevMatch = 0;
         for (int level = 0; level < input.length(); level++) {
-            
+            char ch = input.charAt(level);
+            if(t.childAt(ch) != null) {
+                result += ch;
+                t = t.childAt(ch);
+
+                if(t.isWord()) {
+                    prevMatch = level + 1;
+                }
+            } else {
+                break;
+            }
+
         }
 
-        return "";
+        if( !t.isWord()) {
+            return result.substring(0, prevMatch);
+        } else {
+            return result;
+        }
     }
 
     public static void main(String[] args) {
         LongestPrefixMatcher client = new LongestPrefixMatcher();
         Trie trie = client.construct();
 
-        client.getMatchingPrefix(trie, "caterer");
-        client.getMatchingPrefix(trie, "basement");
-        client.getMatchingPrefix(trie, "are");
-        client.getMatchingPrefix(trie, "arex");
-        client.getMatchingPrefix(trie, "basemexz");
-        client.getMatchingPrefix(trie, "xyz");
+        System.out.println(client.getMatchingPrefix(trie, "caterer"));
+        System.out.println(client.getMatchingPrefix(trie, "basement"));
+        System.out.println(client.getMatchingPrefix(trie, "are"));
+        System.out.println(client.getMatchingPrefix(trie, "arex"));
+        System.out.println(client.getMatchingPrefix(trie, "basemexz"));
+        System.out.println(client.getMatchingPrefix(trie, "xyz"));
+
 
     }
 
