@@ -9,9 +9,7 @@ package javaTest;
 public class Test {
 
     public static void main(String[] args) {
-        String a = "PICKUP_Cancel";
-        String b = "Pickup_Cancelled:";
-
-        System.out.println(b.contains(a));
+        Integer a = null;
+        System.out.println(Long.toString(a));
     }
 }
