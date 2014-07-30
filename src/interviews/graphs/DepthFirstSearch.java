@@ -11,8 +11,6 @@ public class DepthFirstSearch {
     public DepthFirstSearch(Graph g, int v) {
         marked = new boolean[g.V()];
         dfs(g, v);
-
-
     }
 
     private void dfs(Graph g, int v) {
