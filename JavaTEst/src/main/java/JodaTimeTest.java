@@ -7,8 +7,8 @@ import org.joda.time.format.DateTimeFormatter;
  */
 public class JodaTimeTest {
     public static void main(String[] args) {
-        long time = 144222360553200l;
-        DateTime datetime = new DateTime(time);
+
+        DateTime datetime = new DateTime(2015,07,29,20,52,32,0);
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm:ss");
         System.out.println(datetime.toString(formatter));
     }

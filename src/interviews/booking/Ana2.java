@@ -1,4 +1,4 @@
-package interviews;
+package interviews.booking;
 
 import java.io.IOException;
 import java.util.*;
