@@ -8,8 +8,12 @@ import org.joda.time.format.DateTimeFormatter;
 public class JodaTimeTest {
     public static void main(String[] args) {
 
-        DateTime datetime = new DateTime(2015,07,29,20,52,32,0);
+//        DateTime datetime = new DateTime(2015,07,29,20,52,32,0);
+//        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm:ss");
+//        System.out.println(datetime.toString(formatter));
+
+        DateTime dateTime = new DateTime();
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm:ss");
-        System.out.println(datetime.toString(formatter));
+        System.out.println(dateTime.toString(formatter));
     }
 }
