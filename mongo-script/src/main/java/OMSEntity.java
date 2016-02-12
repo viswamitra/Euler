@@ -5,7 +5,27 @@ public class OMSEntity {
 
     private String orderId;
     private String orderItemId;
+
+    @Override
+    public String toString() {
+        return "OMSEntity{" +
+                "orderId='" + orderId + '\'' +
+                ", orderItemId='" + orderItemId + '\'' +
+                ", orderItemStatus='" + orderItemStatus + '\'' +
+                ", customerCancellation=" + customerCancellation +
+                '}';
+    }
+
     private String orderItemStatus;
+    private boolean customerCancellation;
+
+    public boolean isCustomerCancellation() {
+        return customerCancellation;
+    }
+
+    public void setCustomerCancellation(boolean customerCancellation) {
+        this.customerCancellation = customerCancellation;
+    }
 
     public String getOrderId() {
         return orderId;

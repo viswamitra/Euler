@@ -34,15 +34,18 @@ public class Driver {
         MysqlConnector mysqlConnector = new MysqlConnector(gte, lte);
         List<OMSEntity> omsEntities = mysqlConnector.getData();
         Map<String, String> omsDataMap = mysqlConnector.getDataMap(omsEntities);
+        Map<String, Boolean> omsCancelledMap = mysqlConnector.cancelledDataMap(omsEntities);
+
 
         Driver driver = new Driver();
-        driver.writeToFile(dataMap, omsDataMap, gte, lte);
-        driver.writeToFile(dataMap, omsDataMap, gte, lte);
+        driver.writeToFile(dataMap, omsDataMap, omsCancelledMap, gte, lte);
+//        driver.writeToFile(dataMap, omsDataMap, gte, lte);
 
 
     }
 
-    private void writeToFile(Map<String, String> dataMap, Map<String, String> omsDataMap, Date gte, Date lte) {
+    private void writeToFile(Map<String, String> dataMap, Map<String, String> omsDataMap,
+                             Map<String, Boolean> omsCancelledMap, Date gte, Date lte) {
         SimpleDateFormat format = new SimpleDateFormat("MMdd_HH:mm:ss");
         String lteS = format.format(lte);
         String gteS = format.format(gte);
@@ -64,13 +67,25 @@ public class Driver {
                     if(dataMap.get(key).compareToIgnoreCase(omsDataMap.get(key)) != 0) {
                         String aeValue = dataMap.get(key);
                         String omsValue  = omsDataMap.get(key);
-                        if(aeValue.substring(36, aeValue.length()).equalsIgnoreCase("approved") &&
-                                ( omsValue.substring(36, omsValue.length()).equalsIgnoreCase("delivered") ||
-                                omsValue.substring(36, omsValue.length()).equalsIgnoreCase("dispatched") ||
-                                omsValue.substring(36, omsValue.length()).equalsIgnoreCase("ready_to_ship")
-                                )
-                        )
-                            continue;
+                        if(aeValue.substring(36, aeValue.length()).equalsIgnoreCase("approved")) {
+                            System.out.println("Approved aeValue : "+aeValue);
+                            if ( omsValue.substring(36, omsValue.length()).equalsIgnoreCase("delivered") ||
+                                    omsValue.substring(36, omsValue.length()).equalsIgnoreCase("dispatched") ||
+                                    omsValue.substring(36, omsValue.length()).equalsIgnoreCase("ready_to_ship") ||
+                                    omsValue.substring(36, omsValue.length()).equalsIgnoreCase("created") ||
+                                    omsValue.substring(36, omsValue.length()).equalsIgnoreCase("shipped")
+
+                                    ) {
+                                System.out.println("delivered|dispatched|readytoship omsValue : "+omsValue);
+                                continue;
+                            }
+
+                            if( omsValue.substring(36, omsValue.length()).equalsIgnoreCase("cancelled") &&
+                                    omsCancelledMap.get(key)) {
+                                System.out.println("cancelled-user requested omsValue "+omsValue);
+                                continue;
+                            }
+                        }
                         AEOMSDiff++;
                         writer.println(dataMap.get(key)+","+omsDataMap.get(key));
                     } else {
@@ -104,6 +119,9 @@ public class Driver {
             writer.println("In AE not in OMS,"+onlyInAE);
             writer.println("In OMS not in AE,"+onlyinOMS);
             writer.println("AE<->OMS Diff,"+AEOMSDiff);
+            float size = dataMap.size();
+            float diff = AEOMSDiff;
+            writer.println("Diff %,"+ Double.valueOf(diff/size*100));
 
 
 

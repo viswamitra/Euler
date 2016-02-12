@@ -19,6 +19,10 @@ public class Test {
 //        System.out.printf("hello");
         String s = "OD2051428941275630002514289412756300created";
         System.out.println(s.substring(36, s.length()));
+        System.out.println();
+        float a = 50;
+        float b = 200;
+        System.out.println(a/b*100);
     }
 
 }

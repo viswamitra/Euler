@@ -31,7 +31,8 @@ public class MysqlConnector {
         String gteS = format.format(gte);
 
         List<OMSEntity> omsEntities = new ArrayList<>();
-
+//        List<String> cancelledOrderItems = new ArrayList<>();
+        Map<String, OMSEntity> cancelledOrderItems = new HashMap<>();
 
 
 
@@ -43,18 +44,39 @@ public class MysqlConnector {
             System.out.println(sql);
 
             ResultSet rs = stmt.executeQuery(sql);
-
+            int cancelledItems = 0;
             while(rs.next()) {
                 OMSEntity omsEntity = new OMSEntity();
+
                 omsEntity.setOrderId(rs.getString("external_id"));
                 omsEntity.setOrderItemId(rs.getString("id"));
                 omsEntity.setOrderItemStatus(rs.getString("status"));
-
+                if(rs.getString("status").equalsIgnoreCase("cancelled")) {
+                    cancelledItems++;
+                    cancelledOrderItems.put(rs.getString("id"), omsEntity);
+                }
                 omsEntities.add(omsEntity);
 
             }
 
-         } catch (SQLException e) {
+            for(String orderItem : cancelledOrderItems.keySet()) {
+                OMSEntity omsEntity = cancelledOrderItems.get(orderItem);
+                System.out.println(omsEntity.toString());
+                String sql2 = "select from_status from order_item_status_histories where " +
+                        "order_item_id = "+"'"+orderItem+"'"+ " and from_status = 'approved' and " +
+                        "to_status = 'on_hold' and change_reason = 'cancellation_requested'";
+                ResultSet rs2 = stmt.executeQuery(sql2);
+                    while (rs2.next()) {
+                        if(rs2.getString("from_status") != null) {
+                            omsEntity.setCustomerCancellation(true);
+                        }
+                        System.out.println(omsEntity.toString());
+                    }
+            }
+
+
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -82,6 +104,15 @@ public class MysqlConnector {
         for(OMSEntity entity : omsEntities) {
             String entityAppended = entity.getOrderId()+""+entity.getOrderItemId()+""+entity.getOrderItemStatus();
             dataMap.put(entity.getOrderItemId(), entityAppended);
+        }
+        return dataMap;
+    }
+
+    public Map<String, Boolean> cancelledDataMap(List<OMSEntity> omsEntities) {
+        Map<String, Boolean> dataMap = new HashMap<>();
+
+        for(OMSEntity entity : omsEntities) {
+            dataMap.put(entity.getOrderItemId(), entity.isCustomerCancellation());
         }
         return dataMap;
     }
