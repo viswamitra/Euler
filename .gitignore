@@ -30,3 +30,4 @@ SCCS
 _$*
 .idea/*
 out/
+mongo-script/

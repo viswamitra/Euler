@@ -80,11 +80,19 @@ public class Driver {
                                 continue;
                             }
 
-                            if( omsValue.substring(36, omsValue.length()).equalsIgnoreCase("cancelled") &&
+                            if( (
+                                    omsValue.substring(36, omsValue.length()).equalsIgnoreCase("cancelled") ||
+                                    omsValue.substring(36, omsValue.length()).equalsIgnoreCase("on_hold") )
+                                                    &&
                                     omsCancelledMap.get(key)) {
                                 System.out.println("cancelled-user requested omsValue "+omsValue);
                                 continue;
                             }
+                        }
+                        if( omsValue.substring(36, omsValue.length()).equalsIgnoreCase("created")
+                                ) {
+                            System.out.println("created value "+omsValue);
+                            continue;
                         }
                         AEOMSDiff++;
                         writer.println(dataMap.get(key)+","+omsDataMap.get(key));
