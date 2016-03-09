@@ -22,4 +22,8 @@ public class Graph {
         adj[s].add(d);
     }
 
+    public List<Integer> getAdjacentVertices(int k) {
+        return adj[k];
+    }
+
 }
