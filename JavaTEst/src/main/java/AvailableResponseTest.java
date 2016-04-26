@@ -1,9 +1,9 @@
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,12 +33,23 @@ class AvailResponse {
 
 public class AvailableResponseTest {
     public static void main(String[] args) throws IOException {
-        String a = "{\"availability_responses\":{\"LSTSHVDXFJVSHZMZJT6RQHSSJ\":{\"listing_id\":\"LSTSHVDXFJVSHZMZJT6RQHSSJ\",\"inventory_count\":0,\"inventory_type\":\"oos\"},\"LSTSHVDXFJVSHZMZJT6RQHSSK\":{\"listing_id\":\"LSTSHVDXFJVSHZMZJT6RQHSSK\",\"inventory_count\":0,\"inventory_type\":\"oos\"}}}";
+//        String a = "{\"availability_responses\":{\"LSTSHVDXFJVSHZMZJT6RQHSSJ\":{\"listing_id\":\"LSTSHVDXFJVSHZMZJT6RQHSSJ\",\"inventory_count\":0,\"inventory_type\":\"oos\"},\"LSTSHVDXFJVSHZMZJT6RQHSSK\":{\"listing_id\":\"LSTSHVDXFJVSHZMZJT6RQHSSK\",\"inventory_count\":0,\"inventory_type\":\"oos\"}}}";
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode rootNode = objectMapper.readTree(a);
-        JsonNode response = rootNode.get("availability_responses");
-        System.out.println(response.get("LSTSHVDXFJVSHZMZJT6RQHSSJ").toString());
-        Available available = objectMapper.readValue(a, Available.class);
-        System.out.println(available.toString());
+//        JsonNode rootNode = objectMapper.readTree(a);
+//        JsonNode response = rootNode.get("availability_responses");
+//        System.out.println(response.get("LSTSHVDXFJVSHZMZJT6RQHSSJ").toString());
+//        Available available = objectMapper.readValue(a, Available.class);
+//        System.out.println(available.toString());
+        AvailResponse response = new AvailResponse();
+        Available available = new Available();
+        response.setListingId("listingId");
+        response.setInventoryCount(10);
+        response.setInventoryType("type");
+
+        Map<String, AvailResponse> map = new HashMap<String, AvailResponse>();
+        map.put("st", response);
+
+        available.setAvailResponseMap(map);
+        System.out.println(objectMapper.writeValueAsString(available));
     }
 }
