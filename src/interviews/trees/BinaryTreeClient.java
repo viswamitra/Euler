@@ -30,8 +30,5 @@ public class BinaryTreeClient {
         BinaryTreeClient client = new BinaryTreeClient();
         Tree node = client.construct();
         client.printInorder(node);
-
-
-
     }
 }
