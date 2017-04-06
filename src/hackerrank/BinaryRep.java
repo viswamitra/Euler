@@ -5,6 +5,7 @@ package hackerrank;
  */
 public class BinaryRep {
 
+
     public static void main(String[] args) {
         int a = 10;
 
