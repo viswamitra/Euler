@@ -7,23 +7,24 @@ import java.util.List;
  * Created by abhiramk on 19/02/16.
  */
 public class Graph {
-    private int v; // number of vertices
-    private List<Integer> adj[]; // an array of adj values, each value is a list.
 
-    public Graph(int v) {
-        this.v = v;
-        adj = new LinkedList[v];
-        for(int i = 0; i< v; i++){
-            adj[i] = new LinkedList<>();
-        }
-    }
+  private int v;
+  private LinkedList<Integer> adj[];
 
-    public void addEdge(int s, int d) {
-        adj[s].add(d);
+  public Graph(int v) {
+    this.v = v;
+    adj = new LinkedList[v];
+    for(int i = 0; i < v; i++) {
+      adj[i] = new LinkedList<>();
     }
+  }
 
-    public List<Integer> getAdjacentVertices(int k) {
-        return adj[k];
-    }
+  public void addEdge(int v, int w) {
+    adj[v].add(w);
+  }
+
+  public List<Integer> getAdjacents(int v) {
+    return adj[v];
+  }
 
 }

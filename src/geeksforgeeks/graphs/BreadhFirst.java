@@ -12,11 +12,10 @@ public class BreadhFirst {
     private boolean[] visited;
     private Graph g;
 
-
-
     public BreadhFirst(int v) {
         visited = new boolean[v];
     }
+
     public void bfs(Graph g, int s) {
         //mark the current vertex - source as visited.
         visited[s] = true;
@@ -32,7 +31,7 @@ public class BreadhFirst {
             //dequeue an element from the queue, and print it
             int e = queue.poll();
             System.out.print(e+" ");
-            List<Integer> adjVertices = g.getAdjacentVertices(e);
+            List<Integer> adjVertices = g.getAdjacents(e);
 
             for(int i: adjVertices) {
                 if(!visited[i]) {
