@@ -9,6 +9,15 @@ import java.util.List;
 public class Graph {
 
   private int v;
+
+  public int getV() {
+    return v;
+  }
+
+  public void setV(int v) {
+    this.v = v;
+  }
+
   private LinkedList<Integer> adj[];
 
   public Graph(int v) {
