@@ -1,31 +1,40 @@
 package hackerrank.algorithms.dynamicprogramming;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by abhiramk on 16/06/16.
+ * Dynamic programming for fibonacci modified.
  */
 public class fibonacciMod {
 
+    static BigInteger fibonacciModified(int t1, int t2, int n) {
+        List<BigInteger> resList = constructDP(t1, t2, n);
+        return resList.get(n-1);
+    }
+
+    static List<BigInteger> constructDP(int t1, int t2, int n) {
+        List<BigInteger> list = new ArrayList<BigInteger>();
+        list.add(BigInteger.valueOf(Long.valueOf(t1)));
+        list.add(BigInteger.valueOf(Long.valueOf(t2)));
+        for(int i = 2; i < n; i++) {
+            BigInteger power = list.get(i-1).pow(2);
+            BigInteger toAdd = list.get(i-2);
+            BigInteger res = power.add(toAdd);
+            list.add(res);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
-        Scanner sin = new Scanner(System.in);
-        String[] inp = sin.next().split(" ");
-        int first = Integer.valueOf(inp[0]);
-        int second = Integer.valueOf(inp[1]);
-        int n = Integer.valueOf(inp[2]);
-
-        List<Integer> result = new ArrayList<Integer>();
-        result.add(first);
-        result.add(second);
-        for(int i = 2; i< n; i++) {
-            result.add( (result.get(i-1)*result.get(i-1)) + result.get(i-2));
-        }
-
-        for(int i : result) {
-            System.out.print(i+" ");
-        }
-        System.out.println();
+        Scanner in = new Scanner(System.in);
+        int t1 = in.nextInt();
+        int t2 = in.nextInt();
+        int n = in.nextInt();
+        BigInteger result = fibonacciModified(t1, t2, n);
+        System.out.println(result);
+        in.close();
     }
 }
