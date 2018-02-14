@@ -7,7 +7,7 @@ public class DepthFirst {
   public DepthFirst(int v) {
     g = new Graph(v);
   }
-  
+
   public Graph getG() {
     return g;
   }
