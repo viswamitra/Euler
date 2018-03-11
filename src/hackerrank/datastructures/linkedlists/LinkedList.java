@@ -27,17 +27,4 @@ public class LinkedList {
         }
 
     }
-    public Node insert(Node head, int data) {
-        Node node = new Node(data);
-        if(head == null) {
-            head = node;
-        } else {
-
-        }
-
-        return head;
-    }
-
-
-
 }
