@@ -1,5 +1,8 @@
 package geeksforgeeks.trees;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 public class TreeUtil {
 
   public Tree insert(Tree root,int data) {
@@ -67,4 +70,58 @@ public class TreeUtil {
     }
     return root.data + rootSumTree(root.left) + rootSumTree(root.right);
   }
+
+  public boolean isBst(Tree root, int min, int max) {
+    if(root == null) {
+      return false;
+    }
+
+    if(root.data > max || root.data < min) {
+      return false;
+    }
+
+    return isBst(root.left, min, root.data) && isBst(root.right, root.data, max);
+  }
+
+  public void levelOrderTraversal(Tree root) {
+    if(root == null) {
+      return;
+    }
+    Queue<Tree> queue = new ArrayDeque<>();
+    queue.add(root);
+
+    while(! queue.isEmpty()) {
+      root = queue.poll();
+      System.out.println(root.data);
+      if(root.left != null) {
+        queue.add(root.left);
+      }
+      if(root.right != null) {
+        queue.add(root.right);
+      }
+    }
+  }
+
+  public Integer lowestCommonAncestor(Tree root, int first, int second) {
+    if(root == null) {
+      return -1;
+    }
+
+    if(root.data >= first && root.data < second) {
+      return root.data;
+    }
+
+    if(root.data >= first && root.data > second && root.left != null) {
+      return lowestCommonAncestor(root.left, first, second);
+    }
+
+    if(root.data <= first && root.data < second && root.right != null) {
+      return lowestCommonAncestor(root.right, first, second);
+    }
+
+    return -1;
+  }
+
+
+
 }
