@@ -10,13 +10,13 @@ import java.util.Queue;
 public class BreadhFirst {
 
     private boolean[] visited;
-    private Graph g;
+    private Graph3 g;
 
     public BreadhFirst(int v) {
         visited = new boolean[v];
     }
 
-    public void bfs(Graph g, int s) {
+    public void bfs(Graph3 g, int s) {
         //mark the current vertex - source as visited.
         visited[s] = true;
 
@@ -45,7 +45,7 @@ public class BreadhFirst {
 
     public static void main(String[] args) {
         BreadhFirst breadhFirst = new BreadhFirst(4);
-        Graph g = new Graph(4);
+        Graph3 g = new Graph3(4);
         g.addEdge(0,1);
         g.addEdge(0,2);
         g.addEdge(1,2);

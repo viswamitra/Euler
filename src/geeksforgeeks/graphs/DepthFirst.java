@@ -2,13 +2,13 @@ package geeksforgeeks.graphs;
 
 public class DepthFirst {
 
-  private Graph g;
+  private Graph3 g;
 
   public DepthFirst(int v) {
-    g = new Graph(v);
+    g = new Graph3(v);
   }
 
-  public Graph getG() {
+  public Graph3 getG() {
     return g;
   }
 
@@ -29,7 +29,7 @@ public class DepthFirst {
 
   public static void main(String[] args) {
     DepthFirst depthFirst = new DepthFirst(4);
-    Graph g = depthFirst.getG();
+    Graph3 g = depthFirst.getG();
     g.addEdge(2, 0);
     g.addEdge(2, 3);
     g.addEdge(0, 2);

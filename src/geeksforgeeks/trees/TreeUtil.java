@@ -122,6 +122,33 @@ public class TreeUtil {
     return -1;
   }
 
+  public void topView(Tree root) {
+    if(root == null) {
+      return;
+    }
+    if(root.left != null) {
+      topViewLeft(root.left);
+    }
+    System.out.print(root.data+" ");
+    if(root.right != null) {
+      topViewRight(root.right);
+    }
+  }
 
+  private void topViewLeft(Tree root) {
+    if(root.left != null) {
+      topViewLeft(root.left);
+    }
+    System.out.print(root.data+" ");
+  }
 
+  private void topViewRight(Tree root) {
+    if(root == null) {
+      return;
+    }
+    System.out.print(root.data+" ");
+    if(root.right != null) {
+      topViewRight(root.right);
+    }
+  }
 }

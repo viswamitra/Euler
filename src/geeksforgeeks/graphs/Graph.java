@@ -3,37 +3,28 @@ package geeksforgeeks.graphs;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by abhiramk on 19/02/16.
- */
 public class Graph {
 
-  private int v;
+  Integer vertices;
+  List<Integer> adj[];
 
-  public int getV() {
-    return v;
-  }
-
-  public void setV(int v) {
-    this.v = v;
-  }
-
-  private LinkedList<Integer> adj[];
-
-  public Graph(int v) {
-    this.v = v;
-    adj = new LinkedList[v];
+  public Graph(Integer v) {
+    this.vertices = v;
+    adj = new LinkedList[vertices];
     for(int i = 0; i < v; i++) {
       adj[i] = new LinkedList<>();
     }
   }
 
-  public void addEdge(int v, int w) {
-    adj[v].add(w);
+  public void addEdge(int u, int w) {
+    adj[u].add(w);
   }
 
-  public List<Integer> getAdjacents(int v) {
+  public List<Integer> getAdj(int v) {
     return adj[v];
   }
 
+  public Integer getVertices() {
+    return this.vertices;
+  }
 }
